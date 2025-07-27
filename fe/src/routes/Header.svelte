@@ -13,4 +13,4 @@
 
 	});
 </script>
-<h3>You are from {location}. The weather is {condition}, and the temperature is {temp_c}</h3>
+<h3>You are from {location}. The weather is {condition}, and the temperature is {temp_c}C</h3>

@@ -1,3 +1,4 @@
+import subprocess
 import os
 import typing as t
 
@@ -17,3 +18,19 @@ def get_weather(ip: str) -> dict[str, t.Any]:
     result = resp.json()
     cache.set(cache_key, result, 3600)
     return result
+
+
+def shell_run(command: str):
+    return subprocess.run(command.split(), capture_output=True, text=True)
+
+def get_distro() -> tuple[str, str]:
+    """
+    returns (distro_id, version)
+    """
+    entries = shell_run("lsb_release -a").stdout.split("\n")
+    entries = filter(lambda s: bool(s), entries)
+    data = {}
+    for entry in entries:
+        key, value = entry.split(":")
+        data[key.strip()] = value.strip()
+    return data["Distributor ID"], data["Release"]

@@ -26,3 +26,7 @@ class WeatherAPIView(APIView):
                 "original_data": data,
             },
         )
+
+class ServerDistroAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({"distro": utils.get_distro()[0]})

@@ -2,9 +2,8 @@ import os
 import typing as t
 
 import requests
-
-
 from django.core.cache import cache
+
 
 def get_weather(ip: str) -> dict[str, t.Any]:
     key = os.environ.get("WEATHERAPI_KEY")

@@ -1,5 +1,5 @@
-import subprocess
 import os
+import subprocess
 import typing as t
 
 import requests
@@ -22,6 +22,7 @@ def get_weather(ip: str) -> dict[str, t.Any]:
 
 def shell_run(command: str):
     return subprocess.run(command.split(), capture_output=True, text=True)
+
 
 def get_distro() -> tuple[str, str]:
     """

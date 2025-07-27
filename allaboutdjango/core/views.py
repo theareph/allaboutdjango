@@ -1,11 +1,15 @@
-import json
+from typing import override
 
-from rest_framework.response import Response
 from ipware import get_client_ip
+from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from . import utils
+from rest_framework.pagination import PageNumberPagination
+
+from . import models, serializers, utils
 
 # Create your views here.
+
 
 
 class WeatherAPIView(APIView):
@@ -27,6 +31,19 @@ class WeatherAPIView(APIView):
             },
         )
 
+
 class ServerDistroAPIView(APIView):
     def get(self, request, *args, **kwargs):
         return Response({"distro": utils.get_distro()[0]})
+
+
+class DevlogPagination(PageNumberPagination):
+    page_size = 3
+
+class DevlogListAPIView(ListAPIView):
+    serializer_class = serializers.DevlogSerializer
+    pagination_class = DevlogPagination
+
+    @override
+    def get_queryset(self):
+        return models.Devlog.objects.all()

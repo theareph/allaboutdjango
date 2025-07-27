@@ -5,14 +5,19 @@
         "next": null,
         "previous": null,
     })
-    onMount(async () => {
-        const response = await fetch("http://localhost:8000/api/devlogs/")
+    async function populate_devlogs (url) {
+        devlogs.splice(0, devlogs.length)
+        const response = await fetch(url)
         const data = await response.json()
         data.results.forEach(
             item => devlogs.push(item)
         )
         devlogMeta.next = data.next
         devlogMeta.previous = data.previous
+
+    }
+    onMount(async () => {
+        await populate_devlogs("http://localhost:8000/api/devlogs/")
 
     })
 
@@ -30,10 +35,10 @@
     </div>
     {/each}
     {#if devlogMeta.next}
-    <button>Next Page</button>
+    <button onclick={async () => {await populate_devlogs(devlogMeta.next)}}>Next Page</button>
     {/if}
     {#if devlogMeta.previous}
-    <button>Previous Page</button>
+    <button onclick={async () => {await populate_devlogs(devlogMeta.previous)}}>Previous Page</button>
     {/if}
 
 </div>

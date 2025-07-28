@@ -6,6 +6,8 @@
         "previous": null,
     })
     async function populate_devlogs (url) {
+        devlogMeta.next = null
+        devlogMeta.previous = null
         devlogs.splice(0, devlogs.length)
         const response = await fetch(url)
         const data = await response.json()

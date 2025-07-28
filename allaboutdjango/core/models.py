@@ -11,3 +11,7 @@ class Devlog(models.Model):
     published_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True
     )
+
+class SiteVisit(models.Model):
+    region = models.CharField(max_length=50, null=True, blank=True)
+    inserted_at = models.DateTimeField(auto_now_add=True)

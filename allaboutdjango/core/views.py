@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 
 from . import models, serializers, utils
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -47,3 +48,17 @@ class DevlogListAPIView(ListAPIView):
     @override
     def get_queryset(self):
         return models.Devlog.objects.all()
+
+
+class VisitsAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        cache_key = "visit_count"
+        cached_visit_count = cache.get(cache_key)
+        if cached_visit_count:
+            return Response({"visits": cached_visit_count})
+        visit_count = models.SiteVisit.objects.count()
+        cache.set(cache_key, visit_count, 60)
+        return Response({"visits": visit_count})
+    def post(self, request, *args, **kwargs):
+        models.SiteVisit.objects.create()
+        return Response({"visited": True})

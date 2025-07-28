@@ -1,16 +1,15 @@
 from typing import override
 
+from django.core.cache import cache
 from ipware import get_client_ip
 from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
 
 from . import models, serializers, utils
-from django.core.cache import cache
 
 # Create your views here.
-
 
 
 class WeatherAPIView(APIView):
@@ -41,6 +40,7 @@ class ServerDistroAPIView(APIView):
 class DevlogPagination(PageNumberPagination):
     page_size = 3
 
+
 class DevlogListAPIView(ListAPIView):
     serializer_class = serializers.DevlogSerializer
     pagination_class = DevlogPagination
@@ -59,6 +59,7 @@ class VisitsAPIView(APIView):
         visit_count = models.SiteVisit.objects.count()
         cache.set(cache_key, visit_count, 60)
         return Response({"visits": visit_count})
+
     def post(self, request, *args, **kwargs):
         models.SiteVisit.objects.create()
         return Response({"visited": True})

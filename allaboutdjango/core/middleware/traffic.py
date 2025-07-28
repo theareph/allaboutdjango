@@ -8,7 +8,7 @@ class BlockExternalTrafficMiddleware:
         block_external_traffic = getattr(settings, "BLOCK_EXTERNAL_TRAFFIC", False)
         if block_external_traffic:
             _, is_routable = get_client_ip(request)
-            if is_routable is False:
+            if is_routable is True:
                 return HttpResponse("403 Forbidden", status=403)
         response  = self.get_response(request)
         return response

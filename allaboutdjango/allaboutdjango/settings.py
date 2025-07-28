@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure--(lb$mho2b4h13f+b)@!uewepz*3ev^eb1bs#s&(0sp(tf#qeh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.middleware.traffic.BlockExternalTrafficMiddleware",
 ]
 
 ROOT_URLCONF = "allaboutdjango.urls"
@@ -128,3 +129,5 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 50,
 }
+
+BLOCK_EXTERNAL_TRAFFIC = True

@@ -61,5 +61,5 @@ class VisitsAPIView(APIView):
         return Response({"visits": visit_count})
 
     def post(self, request, *args, **kwargs):
-        models.SiteVisit.objects.create()
-        return Response({"visited": True})
+        visit = models.SiteVisit.objects.create()
+        return Response({"visited_at": visit.inserted_at.timestamp()})

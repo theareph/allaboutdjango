@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Devlog(models.Model):
@@ -11,6 +11,7 @@ class Devlog(models.Model):
     published_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True
     )
+    tags = TaggableManager()
 
 
 class SiteVisit(models.Model):

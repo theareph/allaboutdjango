@@ -61,5 +61,10 @@ class VisitsAPIView(APIView):
         return Response({"visits": visit_count})
 
     def post(self, request, *args, **kwargs):
-        visit = models.SiteVisit.objects.create()
+        ip, is_routable = get_client_ip(request)
+        if is_routable:
+            region = utils.get_region(ip)
+        else:
+            region = "local"
+        visit = models.SiteVisit.objects.create(region=region)
         return Response({"visited_at": visit.inserted_at.timestamp()})

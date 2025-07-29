@@ -5,6 +5,8 @@ import requests
 from django.core.cache import cache
 
 from django.conf import settings
+import country_converter
+cc = country_converter.CountryConverter()
 
 def get_weather(ip: str) -> dict[str, t.Any]:
     key = settings.WEATHERAPI_KEY
@@ -35,3 +37,16 @@ def get_distro() -> tuple[str, str]:
         key, value = entry.split(":")
         data[key.strip()] = value.strip()
     return data["Distributor ID"], data["Release"]
+
+def get_region(ip: str, method: t.Literal["weatherapi", "mmdb"]="weatherapi") -> str:
+    match method:
+        case "weatherapi":
+            country = get_weather(ip).get("location", {}).get("country", "Unknown")
+
+            result = cc.convert(country, to="ISO2")
+            if isinstance(result, list):
+                return result[0]
+            else:
+                return result
+        case "mmdb":
+            raise NotImplementedError

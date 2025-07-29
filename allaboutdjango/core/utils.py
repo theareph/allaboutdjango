@@ -5,9 +5,10 @@ import typing as t
 import requests
 from django.core.cache import cache
 
+from django.conf import settings
 
 def get_weather(ip: str) -> dict[str, t.Any]:
-    key = os.environ.get("WEATHERAPI_KEY")
+    key = settings.WEATHERAPI_KEY
     if not key:
         raise ValueError("env var WEATHERAPI_KEY not set")
     cache_key = f"weatherapi-cache:{ip}"

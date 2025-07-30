@@ -44,7 +44,7 @@ def get_distro() -> tuple[str, str]:
 
 def get_region(ip: str, method: t.Literal["weatherapi", "mmdb"] | None = None) -> str:
     if method is None:
-        method = getattr(settings.CUSTOM_GEOIP_METHOD, "weatherapi")
+        method = getattr(settings, "CUSTOM_GEOIP_METHOD", "weatherapi")
     match method:
         case "weatherapi":
             country = get_weather(ip).get("location", {}).get("country", "Unknown")

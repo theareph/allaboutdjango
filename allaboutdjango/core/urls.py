@@ -10,4 +10,7 @@ api_urlpatterns = [
     path("visits/", views.VisitsAPIView.as_view(), name="visits"),
 ]
 
-urlpatterns = [path("api/", include(api_urlpatterns))]
+urlpatterns = [
+    path("redir/<str:to_alias>/", views.simple_redirect, name="simple_redirect"),
+    path("api/", include(api_urlpatterns)),
+]

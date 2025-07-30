@@ -11,9 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+
 from environs import env
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +28,9 @@ DEBUG = env.bool("DEBUG", False)
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY", "django-insecure--(lb$mho2b4h13f+b)@!uewepz*3ev^eb1bs#s&(0sp(tf#qeh")
+SECRET_KEY = env(
+    "SECRET_KEY", "django-insecure--(lb$mho2b4h13f+b)@!uewepz*3ev^eb1bs#s&(0sp(tf#qeh"
+)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 
@@ -140,3 +141,7 @@ REST_FRAMEWORK = {
 WEATHERAPI_KEY = env("WEATHERAPI_KEY", None)
 
 GEOIP_PATH = env("GEOIP_PATH", "/opt/var/lib/geoip")
+
+SIMPLE_REDIRECT_DATA = {
+    "github": "https://github.com/shcsed",
+}

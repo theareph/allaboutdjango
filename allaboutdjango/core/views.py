@@ -1,7 +1,11 @@
-from typing import override
+import typing as t
 
+from django.conf import settings
 from django.core.cache import cache
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from ipware import get_client_ip
+from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
@@ -45,7 +49,7 @@ class DevlogListAPIView(ListAPIView):
     serializer_class = serializers.DevlogSerializer
     pagination_class = DevlogPagination
 
-    @override
+    @t.override
     def get_queryset(self):
         return models.Devlog.objects.all()
 
@@ -68,3 +72,10 @@ class VisitsAPIView(APIView):
             region = "local"
         visit = models.SiteVisit.objects.create(region=region)
         return Response({"visited_at": visit.inserted_at.timestamp()})
+
+
+def simple_redirect(request, to_alias):
+    to = settings.SIMPLE_REDIRECT_DATA.get(to_alias)
+    if not to:
+        return HttpResponse("404 Not Found", status=status.HTTP_404_NOT_FOUND)
+    return redirect(to, permanent=False)

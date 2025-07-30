@@ -1,14 +1,15 @@
 import subprocess
-from django.contrib.gis.geoip2 import GeoIP2
 import typing as t
 
+import country_converter
 import requests
+from django.conf import settings
+from django.contrib.gis.geoip2 import GeoIP2
 from django.core.cache import cache
 
-from django.conf import settings
-import country_converter
 cc = country_converter.CountryConverter()
 g = GeoIP2()
+
 
 def get_weather(ip: str) -> dict[str, t.Any]:
     key = settings.WEATHERAPI_KEY
@@ -40,7 +41,8 @@ def get_distro() -> tuple[str, str]:
         data[key.strip()] = value.strip()
     return data["Distributor ID"], data["Release"]
 
-def get_region(ip: str, method: t.Literal["weatherapi", "mmdb"]="weatherapi") -> str:
+
+def get_region(ip: str, method: t.Literal["weatherapi", "mmdb"] = "weatherapi") -> str:
     match method:
         case "weatherapi":
             country = get_weather(ip).get("location", {}).get("country", "Unknown")

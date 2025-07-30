@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from taggit.managers import TaggableManager
 
+
 # Create your models here.
 class Devlog(models.Model):
     title = models.CharField(max_length=1024, unique=True)

@@ -1,4 +1,5 @@
 import subprocess
+from django.contrib.gis.geoip2 import GeoIP2
 import typing as t
 
 import requests
@@ -7,6 +8,7 @@ from django.core.cache import cache
 from django.conf import settings
 import country_converter
 cc = country_converter.CountryConverter()
+g = GeoIP2()
 
 def get_weather(ip: str) -> dict[str, t.Any]:
     key = settings.WEATHERAPI_KEY
@@ -49,4 +51,4 @@ def get_region(ip: str, method: t.Literal["weatherapi", "mmdb"]="weatherapi") ->
             else:
                 return result
         case "mmdb":
-            raise NotImplementedError
+            return g.country(ip).get("country_code") or "Unknown"

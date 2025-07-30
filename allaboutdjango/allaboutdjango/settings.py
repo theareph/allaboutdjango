@@ -136,3 +136,5 @@ REST_FRAMEWORK = {
 
 
 WEATHERAPI_KEY = env("WEATHERAPI_KEY", None)
+
+GEOIP_PATH = env("GEOIP_PATH", "/opt/var/lib/geoip")

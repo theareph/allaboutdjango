@@ -51,7 +51,7 @@ class DevlogListAPIView(ListAPIView):
 
     @t.override
     def get_queryset(self):
-        return models.Devlog.objects.all()
+        return models.Devlog.objects.order_by("-inserted_at").all()
 
 
 class VisitsAPIView(APIView):

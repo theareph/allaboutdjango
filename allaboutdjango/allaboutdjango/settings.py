@@ -140,8 +140,10 @@ REST_FRAMEWORK = {
 
 WEATHERAPI_KEY = env("WEATHERAPI_KEY", None)
 
+CUSTOM_GEOIP_METHOD = env("CUSTOM_GEOIP_METHOD", "weatherapi")
 GEOIP_PATH = env("GEOIP_PATH", "/opt/var/lib/geoip")
 
 SIMPLE_REDIRECT_DATA = {
-    "github": "https://github.com/shcsed",
+    "github": "https://github.com/shcsed/allaboutdjango",
 }
+

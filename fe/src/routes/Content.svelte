@@ -1,4 +1,5 @@
 <script>
+    import {PUBLIC_API_BASE_URL} from "$env/static/public"
     import { onMount } from "svelte";
     const devlogs = $state([])
     const devlogMeta = $state({
@@ -19,7 +20,7 @@
 
     }
     onMount(async () => {
-        await populate_devlogs("http://localhost:8000/api/devlogs/")
+        await populate_devlogs(`${PUBLIC_API_BASE_URL}/api/devlogs/`)
 
     })
 

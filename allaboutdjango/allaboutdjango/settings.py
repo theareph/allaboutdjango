@@ -147,3 +147,5 @@ SIMPLE_REDIRECT_DATA = {
     "github": "https://github.com/shcsed/allaboutdjango",
 }
 
+
+ADMIN_URL_PATH = env("ADMIN_URL_PATH", "admin/")

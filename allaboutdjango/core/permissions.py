@@ -12,6 +12,10 @@ class IsAdminOrReadonly(permissions.BasePermission):
             request,
             "user",
             None,
-        ) or not getattr(request.user, "is_admin", None):
+        ) or not getattr(
+            request.user,
+            "is_admin",
+            None,
+        ):
             return False
         return bool(request.user.is_admin)

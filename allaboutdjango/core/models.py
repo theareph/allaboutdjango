@@ -19,6 +19,7 @@ class SiteVisit(models.Model):
     region = models.CharField(max_length=50, null=True, blank=True)
     inserted_at = models.DateTimeField(auto_now_add=True)
 
+
 class Book(models.Model):
     isbn = models.TextField(unique=True)
     name = models.TextField()

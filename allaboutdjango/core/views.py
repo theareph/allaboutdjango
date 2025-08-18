@@ -11,6 +11,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
 from . import filters, models, permissions, serializers, utils
@@ -91,6 +92,7 @@ class BookViewSet(ModelViewSet):
     permission_classes = [permissions.IsAdminOrReadonly]
     queryset = models.Book.objects.all()
     serializer_class = serializers.BookSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = filters.BookFilter
     pagination_class = BookPagination
+    search_fields = ["=isbn", "name", "author"]

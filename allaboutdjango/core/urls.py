@@ -1,6 +1,11 @@
 from django.urls import include, path
 
 from . import views
+from rest_framework.routers import DefaultRouter
+
+
+book_router = DefaultRouter()
+book_router.register("", views.BookViewSet, "book")
 
 app_name = "core"
 api_urlpatterns = [
@@ -8,6 +13,7 @@ api_urlpatterns = [
     path("server-distro/", views.ServerDistroAPIView.as_view(), name="server-distro"),
     path("devlogs/", views.DevlogListAPIView.as_view(), name="devlogs"),
     path("visits/", views.VisitsAPIView.as_view(), name="visits"),
+    path("books/", include(book_router.urls)),
 ]
 
 urlpatterns = [

@@ -10,8 +10,10 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
-from . import models, serializers, utils
+from . import models, serializers, utils, permissions, filters
 
 # Create your views here.
 
@@ -79,3 +81,10 @@ def simple_redirect(request, to_alias):
     if not to:
         return HttpResponse("404 Not Found", status=status.HTTP_404_NOT_FOUND)
     return redirect(to, permanent=False)
+
+class BookViewSet(ModelViewSet):
+    permission_classes = [permissions.IsAdminOrReadonly]
+    queryset = models.Book.objects.all()
+    serializer_class = serializers.BookSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = filters.BookFilter

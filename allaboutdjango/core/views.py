@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django_filters.rest_framework import DjangoFilterBackend
 from ipware import get_client_ip
 from rest_framework import status
 from rest_framework.generics import ListAPIView
@@ -11,9 +12,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from django_filters.rest_framework import DjangoFilterBackend
 
-from . import models, serializers, utils, permissions, filters
+from . import filters, models, permissions, serializers, utils
 
 # Create your views here.
 
@@ -82,8 +82,10 @@ def simple_redirect(request, to_alias):
         return HttpResponse("404 Not Found", status=status.HTTP_404_NOT_FOUND)
     return redirect(to, permanent=False)
 
+
 class BookPagination(PageNumberPagination):
     page_size = 10
+
 
 class BookViewSet(ModelViewSet):
     permission_classes = [permissions.IsAdminOrReadonly]

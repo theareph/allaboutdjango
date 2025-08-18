@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Devlog, SiteVisit, Book
+from .models import Book, Devlog, SiteVisit
 
 # Register your models here.
 
@@ -17,6 +17,7 @@ class DevlogAdmin(admin.ModelAdmin):
 class SiteVisitAdmin(admin.ModelAdmin):
     readonly_fields = ["inserted_at", "region"]
     list_display = ["inserted_at", "region"]
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):

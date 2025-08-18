@@ -82,9 +82,13 @@ def simple_redirect(request, to_alias):
         return HttpResponse("404 Not Found", status=status.HTTP_404_NOT_FOUND)
     return redirect(to, permanent=False)
 
+class BookPagination(PageNumberPagination):
+    page_size = 10
+
 class BookViewSet(ModelViewSet):
     permission_classes = [permissions.IsAdminOrReadonly]
     queryset = models.Book.objects.all()
     serializer_class = serializers.BookSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = filters.BookFilter
+    pagination_class = BookPagination

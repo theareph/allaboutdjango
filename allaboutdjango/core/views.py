@@ -95,4 +95,4 @@ class BookViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = filters.BookFilter
     pagination_class = BookPagination
-    search_fields = ["=isbn", "name", "author"]
+    search_fields = ["isbn", "name", "author"]

@@ -15,7 +15,7 @@ const DevLogs = () => {
     }
     useEffect(() => {
         const initPosts = async () => {
-            await populatePosts("http://localhost:8000/api/devlogs/")       
+            await populatePosts(`${process.env.NEXT_PUBLIC_BASE_URL}/api/devlogs/`)       
         }
         initPosts()
     }, [])

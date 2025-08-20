@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react'
 
 const Weather = () => {
     const [weather, setWeather] = useState({})
-
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL
     useEffect(() => {
         async function updateWeather() {
-            setWeather(await (await fetch("http://localhost:8000/api/weather/")).json())
+            setWeather(await (await fetch(`${baseURL}/api/weather/`)).json())
         }
         updateWeather()
     }, []

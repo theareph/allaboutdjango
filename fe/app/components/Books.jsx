@@ -15,7 +15,7 @@ const Books = () => {
     }
     useEffect(() => {
         const initBooks = async () => {
-            await populateBooks("http://localhost:8000/api/books/")       
+            await populateBooks(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books/`) 
         }
         initBooks()
     }, [])

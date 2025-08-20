@@ -12,10 +12,8 @@ const Visitor = () => {
                 setTotalVisitors(totalVisitors)
                 await fetch("http://localhost:8000/api/visits/", {method: "POST"})
             }
-            if (!totalVisitors) {
-                processVisit()
-            }
-        }
+            processVisit()
+        }, []
     )
 
   return (

@@ -9,10 +9,8 @@ const Weather = () => {
         async function updateWeather() {
             setWeather(await (await fetch("http://localhost:8000/api/weather/")).json())
         }
-        if (!weather.temp_c) {
-            updateWeather()
-        }
-    }
+        updateWeather()
+    }, []
     )
 
   return (

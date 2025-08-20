@@ -1,3 +1,4 @@
+import Visitor from './Visitor'
 import React from 'react'
 
 const Footer = async () => {
@@ -7,6 +8,7 @@ const Footer = async () => {
       <>
       <hr />
       <div>The server is running: {serverDistro}</div>
+        <Visitor/>
       </>
   )
 }

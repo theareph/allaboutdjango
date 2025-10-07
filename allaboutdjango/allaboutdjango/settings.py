@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django_filters",
     "core",
     "rest_framework",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,4 @@ SIMPLE_REDIRECT_DATA = {
 
 
 ADMIN_URL_PATH = env("ADMIN_URL_PATH", "admin/")
+SHELL_PLUS = "ipython"
